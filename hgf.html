@@ -1,0 +1,3064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shagun Ratna | High Jewelry</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 60-30-10 Color Palette Rule --- */
+        :root {
+            /* 60% BEIGE */
+            --bg-beige: #F3EFEA;
+            --bg-card: #EAE3D9;
+            --bg-beige-alt: #EBE5DA;
+
+            /* 30% MAROON */
+            --color-maroon: #5E1A1A;
+            --color-maroon-dark: #2A0B0B;
+
+            /* 10% GOLD */
+            --color-gold: #D4AF37;
+            --color-gold-light: #EAD086;
+            --color-gold-faint: rgba(212, 175, 55, 0.2);
+
+            --text-light: #FFFFFF;
+
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html {
+            scrollbar-width: none;
+            background-color: var(--bg-beige);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-maroon-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Global Helpers --- */
+        .section-padding {
+            padding: 100px 5%;
+        }
+
+        .gold-text {
+            color: var(--color-gold);
+        }
+
+        .maroon-text {
+            color: var(--color-maroon);
+        }
+
+        .serif-heading {
+            font-family: var(--font-serif);
+            font-weight: 400;
+        }
+
+        .gsap-reveal {
+            visibility: hidden;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        /* =========================================
+           1. PREMIUM HERO HEADER & NAVBAR
+           ========================================= */
+        .hero-header {
+            position: relative;
+            height: 100vh;
+            padding: 20px 4%;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-beige);
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--color-gold-faint) 0%, rgba(212, 175, 55, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--color-gold-light);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            color: var(--color-maroon);
+            position: relative;
+            z-index: 100;
+        }
+
+        .menu-container {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: -10px;
+        }
+
+        .menu-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 30px;
+            height: 1px;
+            background-color: var(--color-maroon);
+            position: relative;
+        }
+
+        .hamburger::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 0;
+            width: 30px;
+            height: 1px;
+            background-color: var(--color-maroon);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-left:hover .hamburger::before {
+            transform: translateY(-2px);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-beige);
+            min-width: 160px;
+            box-shadow: 0 10px 30px rgba(94, 26, 26, 0.08);
+            border: 1px solid var(--color-gold-faint);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+        }
+
+        .menu-container:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--color-maroon-dark);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background-color 0.3s, color 0.3s, padding-left 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--color-gold-faint);
+            color: var(--color-maroon);
+            padding-left: 25px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .auth-btn {
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-login {
+            color: var(--color-maroon);
+            background: none;
+            border: none;
+        }
+
+        .btn-login:hover {
+            color: var(--color-gold);
+        }
+
+        .btn-register {
+            background-color: var(--color-maroon);
+            color: var(--bg-beige);
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--color-maroon);
+        }
+
+        .btn-register:hover {
+            background-color: transparent;
+            color: var(--color-maroon);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--color-maroon);
+            stroke-width: 1.5;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-icons svg:hover {
+            transform: scale(1.1);
+            stroke: var(--color-gold);
+        }
+
+        /* Cart Nav Icon Styling */
+        .cart-icon-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--color-gold);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 600;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .title-container {
+            text-align: center;
+            position: relative;
+            padding-top: 3vh;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .brand-title {
+            font-family: var(--font-serif);
+            font-size: 15vw;
+            font-weight: 400;
+            line-height: 0.9;
+            letter-spacing: -2px;
+            white-space: nowrap;
+            color: var(--color-maroon);
+            transform: translateY(110%);
+        }
+
+        .title-line {
+            width: 100%;
+            height: 1px;
+            background-color: var(--color-gold);
+            margin-top: 1vh;
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+
+        .center-image {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 75vh;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .center-image img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 30px 40px rgba(94, 26, 26, 0.2));
+            will-change: transform;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-grow: 1;
+            padding-bottom: 5vh;
+            position: relative;
+            z-index: 10;
+        }
+
+        .left-col,
+        .right-col {
+            width: 30%;
+            max-width: 350px;
+            opacity: 0;
+        }
+
+        .left-col h2 {
+            font-family: var(--font-serif);
+            color: var(--color-maroon);
+            font-size: 2.8rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .left-col p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .magnetic-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--color-maroon);
+            color: var(--bg-beige);
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--color-maroon);
+        }
+
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-gold);
+            border-radius: 50%;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0;
+        }
+
+        .magnetic-btn:hover {
+            border-color: var(--color-gold);
+            color: var(--color-maroon-dark);
+            font-weight: 600;
+        }
+
+        .magnetic-btn:hover::before {
+            top: 0;
+            border-radius: 0;
+        }
+
+        .magnetic-btn span,
+        .magnetic-btn i {
+            position: relative;
+            z-index: 1;
+            pointer-events: none;
+            transition: color 0.3s;
+        }
+
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .right-col h3 {
+            font-family: var(--font-serif);
+            color: var(--color-maroon);
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 1.4;
+            text-align: right;
+            margin-bottom: 60px;
+        }
+
+        .category-list {
+            list-style: none;
+            width: 100%;
+        }
+
+        .category-list li {
+            border-top: 1px solid var(--color-gold-faint);
+            overflow: hidden;
+        }
+
+        .category-list li:last-child {
+            border-bottom: 1px solid var(--color-gold-faint);
+        }
+
+        .category-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            color: var(--color-maroon-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+        }
+
+        .category-list a:hover {
+            transform: translateX(10px);
+            color: var(--color-gold);
+        }
+
+        /* =========================================
+           2. FEATURED CATEGORIES SLIDER
+           ========================================= */
+        .featured-slider-section {
+            background: linear-gradient(to bottom, var(--color-maroon-dark) 0%, var(--color-maroon-dark) 55%, var(--bg-beige) 55%, var(--bg-beige) 100%);
+            position: relative;
+            padding-top: 80px;
+            padding-bottom: 60px;
+        }
+
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            padding: 0 5%;
+        }
+
+        .slider-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding-bottom: 20px;
+        }
+
+        .slider-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-card {
+            min-width: 320px;
+            flex: 0 0 calc(33.333% - 14px);
+            background-color: #F8F6F3;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            scroll-snap-align: start;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .slider-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-top {
+            margin-bottom: 10px;
+        }
+
+        .card-subtitle {
+            font-size: 0.75rem;
+            color: #777;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #222;
+            margin-top: 4px;
+            font-weight: 700;
+        }
+
+        .card-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .card-image img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slider-card:hover .card-image img {
+            transform: scale(1.08);
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            align-self: flex-start;
+            transition: background-color 0.3s;
+        }
+
+        .card-btn:hover {
+            background-color: var(--color-maroon);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            right: 2%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #3a3a3a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .slider-arrow:hover {
+            background-color: var(--color-maroon);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* =========================================
+           2.5 DIAMONDS & ENGAGEMENT SECTION
+           ========================================= */
+        .diamonds-section {
+            background-color: var(--bg-beige);
+            padding-bottom: 100px;
+        }
+
+        .diamonds-container {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 60px;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .diamonds-content h2 {
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
+            color: var(--color-maroon);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .diamonds-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-maroon-dark);
+            margin-bottom: 30px;
+            opacity: 0.85;
+            max-width: 90%;
+        }
+
+        .btn-solid-dark {
+            display: inline-block;
+            background-color: #3a3a3a;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-solid-dark:hover {
+            background-color: var(--color-maroon);
+            color: #fff;
+        }
+
+        .diamonds-slider-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .diamond-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .d-arrow {
+            width: 45px;
+            height: 35px;
+            background-color: #999;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .d-arrow:hover {
+            background-color: var(--color-maroon);
+        }
+
+        .d-arrow.active {
+            background-color: #3a3a3a;
+        }
+
+        .diamond-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding-bottom: 10px;
+            padding-right: 5%;
+        }
+
+        .diamond-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .d-card {
+            min-width: 280px;
+            flex: 0 0 calc(50% - 10px);
+            background-color: #F8F6F3;
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+        }
+
+        .d-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .d-heart {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #999;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .d-heart:hover {
+            color: var(--color-maroon);
+        }
+
+        .d-category {
+            font-size: 0.75rem;
+            color: #777;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .d-title {
+            font-size: 1.6rem;
+            color: #222;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .d-badge {
+            display: inline-block;
+            background-color: #3a3a3a;
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .d-img {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .d-img img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+            transition: transform 0.4s;
+        }
+
+        .d-card:hover .d-img img {
+            transform: scale(1.08);
+        }
+
+        .d-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .d-prices {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .d-price-new {
+            font-weight: 700;
+            color: #222;
+            font-size: 1rem;
+        }
+
+        .d-price-old {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .d-cart-btn {
+            background-color: #3a3a3a;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .d-cart-btn:hover {
+            background-color: var(--color-maroon);
+        }
+
+        /* =========================================
+           2.6 "NEW JEWELRY" SECTION
+           ========================================= */
+        .new-jewelry-section {
+            background-color: var(--bg-card);
+            padding: 80px 0;
+            overflow: hidden;
+        }
+
+        .nj-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .nj-left {
+            width: 35%;
+        }
+
+        .nj-left img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 3/4;
+            border-radius: 4px;
+        }
+
+        .nj-center {
+            width: 35%;
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        .nj-title {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            color: var(--color-maroon);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .nj-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-maroon-dark);
+            margin-bottom: 30px;
+            opacity: 0.85;
+        }
+
+        .nj-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--color-maroon);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .nj-desc-small {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--color-maroon-dark);
+            opacity: 0.75;
+            margin-bottom: 40px;
+        }
+
+        .nj-btn {
+            display: inline-block;
+            padding: 12px 35px;
+            border: 1px solid var(--color-maroon);
+            color: var(--color-maroon);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .nj-btn:hover {
+            background-color: var(--color-maroon);
+            color: var(--bg-beige);
+        }
+
+        .nj-right {
+            width: 25%;
+        }
+
+        .nj-img-wrap {
+            position: relative;
+            width: 100%;
+            display: block;
+        }
+
+        .nj-img-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 4/5;
+            border-radius: 4px;
+        }
+
+        .nj-img-wrap::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--color-gold);
+            pointer-events: none;
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        /* =========================================
+           2.7 "PERFECT MATCH" SECTION
+           ========================================= */
+        .perfect-match-section {
+            background-color: var(--bg-beige);
+            position: relative;
+            padding: 120px 0;
+            overflow: hidden;
+        }
+
+        .pm-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding: 0 5%;
+        }
+
+        .pm-bg-band {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 55%;
+            height: 60%;
+            background-color: var(--color-gold-faint);
+            z-index: 0;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .pm-content {
+            width: 45%;
+            text-align: right;
+            padding-right: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pm-content h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            color: var(--color-maroon);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .pm-content p {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--color-maroon-dark);
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .pm-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-maroon);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .pm-line {
+            width: 30px;
+            height: 1px;
+            background-color: var(--color-maroon);
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .pm-link:hover {
+            color: var(--color-gold);
+        }
+
+        .pm-link:hover .pm-line {
+            background-color: var(--color-gold);
+            width: 45px;
+        }
+
+        .pm-image {
+            width: 40%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 20px 50px rgba(94, 26, 26, 0.1);
+        }
+
+        .pm-image img {
+            width: 100%;
+            display: block;
+            height: auto;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* =========================================
+           3. ABOUT US SECTION (EDITORIAL LAYOUT)
+           ========================================= */
+        .about-us-section {
+            background-color: var(--bg-beige);
+            padding: 120px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            gap: 60px;
+        }
+
+        .about-left {
+            width: 40%;
+            position: relative;
+        }
+
+        .about-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            color: var(--color-maroon);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .about-desc {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--color-maroon-dark);
+            opacity: 0.85;
+            margin-bottom: 50px;
+            padding-right: 10%;
+        }
+
+        .about-monogram {
+            position: relative;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .monogram-bg {
+            font-family: var(--font-serif);
+            font-size: 9rem;
+            color: #fff;
+            line-height: 1;
+            user-select: none;
+            text-shadow: 0 0 1px rgba(94, 26, 26, 0.1);
+        }
+
+        .monogram-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            color: var(--color-maroon-dark);
+            text-align: center;
+            text-transform: uppercase;
+            width: max-content;
+        }
+
+        .about-dot {
+            position: absolute;
+            bottom: 15px;
+            left: -40px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-gold);
+            border-radius: 50%;
+        }
+
+        .about-right {
+            width: 55%;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .about-img-back {
+            width: 65%;
+            height: 500px;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .about-img-front-wrapper {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60%;
+            z-index: 2;
+        }
+
+        .about-img-front-wrapper img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: -15px 20px 50px rgba(94, 26, 26, 0.15);
+        }
+
+        .about-overlay-text {
+            position: absolute;
+            top: 25px;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            letter-spacing: 5px;
+            z-index: 3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-overlay-date {
+            position: absolute;
+            bottom: 25px;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            font-weight: 500;
+            text-transform: uppercase;
+            z-index: 3;
+        }
+
+        /* =========================================
+           4. OTHER SECTIONS
+           ========================================= */
+        .cat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--color-gold-light);
+            border-bottom: 1px solid var(--color-gold-light);
+            background: var(--bg-beige);
+        }
+
+        .cat-item {
+            padding: 30px;
+            text-align: center;
+            border-right: 1px solid var(--color-gold-light);
+            position: relative;
+        }
+
+        .cat-item:last-child {
+            border-right: none;
+        }
+
+        .cat-item h4 {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--color-maroon);
+        }
+
+        .cat-item h4 i {
+            color: var(--color-gold);
+        }
+
+        .cat-item img {
+            max-width: 60%;
+            margin: 0 auto;
+            transition: transform 0.5s ease;
+        }
+
+        .cat-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .loved-creations {
+            text-align: center;
+            background-color: var(--bg-beige);
+        }
+
+        .section-header {
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            color: var(--color-maroon);
+        }
+
+        .product-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: left;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .badge-sale {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--color-maroon);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .heart-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--color-maroon);
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 2;
+            transition: color 0.3s;
+        }
+
+        .heart-btn:hover {
+            color: var(--color-gold);
+        }
+
+        .product-img-wrap {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .product-img-wrap img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .product-info h5 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--color-maroon);
+        }
+
+        .product-info p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--color-gold);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--color-maroon);
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
+        .btn-add-cart {
+            background: var(--color-maroon);
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            float: right;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--color-gold);
+        }
+
+        .antique-spotlight {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background-color: var(--bg-beige);
+        }
+
+        .antique-img-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .antique-img-group img {
+            width: 50%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .antique-content {
+            padding-left: 5%;
+        }
+
+        .antique-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--color-maroon);
+        }
+
+        .antique-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: var(--color-maroon-dark);
+        }
+
+        .best-sellers-section {
+            background-color: var(--bg-beige);
+            text-align: center;
+        }
+
+        .best-sellers-section h2 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--color-maroon);
+        }
+
+        .best-sellers-section h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+            color: var(--color-maroon);
+        }
+
+        .testimonials-section {
+            background-color: var(--bg-beige-alt);
+            text-align: center;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-beige);
+            padding: 40px;
+            border-radius: 12px;
+            border-top: 3px solid var(--color-gold);
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(94, 26, 26, 0.05);
+        }
+
+        .quote-icon {
+            color: var(--color-gold-faint);
+            font-size: 4rem;
+            font-family: var(--font-serif);
+            line-height: 0.5;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-text {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-style: italic;
+            color: var(--color-maroon);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--color-maroon-light);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .news-section {
+            background-color: var(--bg-beige);
+            text-align: center;
+        }
+
+        .news-section-title {
+            font-size: 2.2rem;
+            color: var(--color-maroon);
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .news-card:hover .news-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .news-card:hover .news-read-more {
+            color: var(--color-gold);
+            border-color: var(--color-gold);
+            padding-left: 5px;
+        }
+
+        .news-img-wrap {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+            aspect-ratio: 1 / 1;
+            border-radius: 4px;
+        }
+
+        .news-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .news-date {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            background-color: #fff;
+            padding: 15px 12px;
+            text-align: center;
+            color: var(--color-maroon);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            z-index: 2;
+        }
+
+        .n-day {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-style: italic;
+            display: block;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+
+        .n-month {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .news-meta {
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .news-title {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--color-maroon);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .news-excerpt {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-maroon-dark);
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .news-read-more {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-maroon);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            border-bottom: 1px solid var(--color-maroon);
+            padding-bottom: 4px;
+            transition: all 0.3s;
+            align-self: flex-start;
+        }
+
+        .newsletter-section {
+            background-color: var(--color-maroon);
+            color: var(--text-light);
+            text-align: center;
+            padding: 100px 5%;
+        }
+
+        .newsletter-title {
+            font-size: 3rem;
+            color: var(--color-gold);
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 40px auto 0;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid var(--color-gold-light);
+            padding-bottom: 10px;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-submit {
+            background: transparent;
+            border: none;
+            color: var(--color-gold);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .newsletter-submit:hover {
+            transform: translateX(5px);
+        }
+
+        .site-footer {
+            background-color: var(--color-maroon);
+            color: var(--text-light);
+            padding: 60px 5% 30px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            letter-spacing: 5px;
+            margin: 0 0 40px;
+            color: var(--text-light);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            font-size: 0.75rem;
+            opacity: 0.6;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* =========================================
+           5. AUTH MODAL (NEW)
+           ========================================= */
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(42, 11, 11, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .auth-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .auth-modal {
+            background: var(--bg-beige);
+            width: 90%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--color-gold-faint);
+            overflow: hidden;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--color-maroon);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--color-gold);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h2 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            color: var(--color-maroon);
+            margin-bottom: 10px;
+        }
+
+        .auth-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            border-bottom: 1px solid var(--color-gold-faint);
+            padding-bottom: 10px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-maroon-dark);
+            opacity: 0.5;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .toggle-btn.active {
+            opacity: 1;
+            color: var(--color-maroon);
+        }
+
+        .auth-form {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auth-form.active {
+            display: flex;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: var(--color-maroon);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 12px 15px;
+            border: 1px solid var(--color-gold-light);
+            border-radius: 6px;
+            background: var(--bg-card);
+            font-family: var(--font-sans);
+            color: var(--color-maroon-dark);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--color-maroon);
+        }
+
+        .auth-submit {
+            background: var(--color-maroon);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .auth-submit:hover {
+            background: var(--color-gold);
+        }
+
+        /* =========================================
+           6. CART SIDEBAR (NEW)
+           ========================================= */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--bg-card);
+            z-index: 1501;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            border-left: 1px solid var(--color-gold-light);
+        }
+
+        .cart-header {
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--color-gold-faint);
+        }
+
+        .cart-header h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--color-maroon);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-maroon);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-cart:hover {
+            color: var(--color-gold);
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            color: var(--color-maroon-dark);
+            opacity: 0.6;
+            font-style: italic;
+            margin-top: 50px;
+        }
+
+        .cart-item-card {
+            display: flex;
+            gap: 15px;
+            background: var(--bg-beige);
+            padding: 15px;
+            border-radius: 8px;
+            align-items: center;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .cart-item-img {
+            width: 70px;
+            height: 70px;
+            background: #fff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-item-img img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--color-maroon);
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            font-weight: 600;
+            color: var(--color-gold);
+            font-size: 0.9rem;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #a00;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+
+        .remove-item:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-footer {
+            padding: 30px;
+            background: var(--bg-beige);
+            border-top: 1px solid var(--color-gold-faint);
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-maroon);
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--color-maroon);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: var(--color-gold);
+        }
+
+
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            .brand-title {
+                font-size: 14vw;
+            }
+
+            .content-wrapper {
+                align-items: center;
+                padding-top: 40px;
+            }
+
+            .center-image {
+                opacity: 0.3;
+                z-index: 0;
+            }
+
+            .left-col,
+            .right-col {
+                width: 45%;
+                z-index: 10;
+            }
+
+            .slider-card {
+                flex: 0 0 calc(50% - 10px);
+            }
+
+            .diamonds-container {
+                grid-template-columns: 1fr;
+            }
+
+            .d-card {
+                flex: 0 0 calc(50% - 10px);
+            }
+
+            .nj-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 50px;
+            }
+
+            .nj-left,
+            .nj-center,
+            .nj-right {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .nj-center {
+                text-align: center;
+                padding: 0;
+            }
+
+            .pm-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pm-content {
+                width: 100%;
+                text-align: center;
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+
+            .pm-link {
+                justify-content: center;
+            }
+
+            .pm-image {
+                width: 80%;
+            }
+
+            .pm-bg-band {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                transform: none;
+                right: 0;
+            }
+
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-left {
+                width: 100%;
+                padding-right: 0;
+            }
+
+            .about-desc {
+                padding-right: 0;
+            }
+
+            .about-dot {
+                display: none;
+            }
+
+            .about-right {
+                width: 100%;
+                min-height: 450px;
+                margin-top: 40px;
+            }
+
+            .about-img-back {
+                width: 70%;
+                height: 350px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .about-img-front-wrapper {
+                width: 65%;
+                bottom: -30px;
+                left: 50%;
+                transform: translateX(-30%);
+            }
+
+            .about-img-front-wrapper img {
+                height: 300px;
+            }
+
+            .antique-spotlight {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .product-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cat-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-right {
+                gap: 15px;
+            }
+
+            .auth-btn {
+                font-size: 0.65rem;
+                padding: 6px 12px;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .left-col,
+            .right-col {
+                width: 100%;
+                max-width: 100%;
+                align-items: center;
+            }
+
+            .right-col h3 {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .slider-card {
+                flex: 0 0 85%;
+            }
+
+            .d-card {
+                flex: 0 0 85%;
+            }
+
+            .about-img-back {
+                width: 90%;
+            }
+
+            .about-img-front-wrapper {
+                width: 85%;
+                transform: translateX(-10%);
+            }
+
+            .product-grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .antique-img-group {
+                flex-direction: column;
+            }
+
+            .antique-img-group img {
+                width: 100%;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .cart-sidebar {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grain-overlay"></div>
+
+    <header class="hero-header">
+        <div class="hero-glow"></div>
+
+        <nav class="nav-bar intro-anim">
+            <div class="menu-container">
+                <div class="menu-left">
+                    <div class="hamburger"></div>
+                    <span>MENU</span>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="gallery.html">Gallery</a>
+                    <a href="#">About Us</a>
+                    <a href="#">More</a>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <div class="auth-buttons">
+                    <button class="auth-btn btn-login" id="navLoginBtn">Login</button>
+                    <button class="auth-btn btn-register" id="navRegisterBtn">Register</button>
+                </div>
+                <div class="nav-icons">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+
+                    <div class="cart-icon-wrap" id="navCartBtn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="title-container">
+            <h1 class="brand-title">Shagun Ratna</h1>
+            <div class="title-line"></div>
+        </div>
+
+        <div class="center-image">
+            <img class="parallax-hand"
+                src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=800&auto=format&fit=crop"
+                alt="Jewelry Display">
+        </div>
+
+        <div class="content-wrapper">
+            <div class="left-col">
+                <h2>COLLECTION<br>2026</h2>
+                <p>Discover exquisite ruby and gold jewelry inspired by the heritage of the heavens. Each piece is
+                    crafted to bring elegance to your most cherished occasions.</p>
+                <div class="magnetic-btn"><span>DISCOVER</span> <i>→</i></div>
+            </div>
+
+            <div class="right-col">
+                <h3>A CELESTIAL TOUCH<br>FOR TIMELESS MOMENTS</h3>
+                <ul class="category-list">
+                    <li><a href="#">RINGS <span>→</span></a></li>
+                    <li><a href="#">EARRINGS <span>→</span></a></li>
+                    <li><a href="#">NECKLACES <span>→</span></a></li>
+                    <li><a href="#">BRACELETS <span>→</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <section class="featured-slider-section">
+        <div class="slider-container">
+            <div class="slider-track">
+
+                <div class="slider-card gsap-slider-card">
+                    <div class="card-top">
+                        <span class="card-subtitle">Categories</span>
+                        <h3 class="card-title">Rings</h3>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f6612048f?q=80&w=400&auto=format&fit=crop"
+                            alt="Rings">
+                    </div>
+                    <a href="#" class="card-btn">Check More Product <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="slider-card gsap-slider-card">
+                    <div class="card-top">
+                        <span class="card-subtitle">Categories</span>
+                        <h3 class="card-title">Couple Rings</h3>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=400&auto=format&fit=crop"
+                            alt="Couple Rings">
+                    </div>
+                    <a href="#" class="card-btn">Check More Product <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="slider-card gsap-slider-card">
+                    <div class="card-top">
+                        <span class="card-subtitle">Categories</span>
+                        <h3 class="card-title">Earrings</h3>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1588444650733-d0767b753cb8?q=80&w=400&auto=format&fit=crop"
+                            alt="Earrings">
+                    </div>
+                    <a href="#" class="card-btn">Check More Product <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+            <button class="slider-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section class="diamonds-section">
+        <div class="diamonds-container">
+            <div class="diamonds-content gsap-diamond-left">
+                <h2 class="serif-heading">Diamonds &<br>Engagement Ring</h2>
+                <p>Experience the beauty of diamond jewellery and find your perfect piece for a special occasion. Find
+                    the perfect diamond for any special occasion, from engagement rings and wedding bands to anniversary
+                    and Christmas gifts</p>
+                <a href="#" class="btn-solid-dark">More Product</a>
+            </div>
+
+            <div class="diamonds-slider-wrapper gsap-diamond-right">
+                <div class="diamond-controls">
+                    <button class="d-arrow d-prev"><i class="fas fa-arrow-left"></i></button>
+                    <button class="d-arrow d-next active"><i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <div class="diamond-track">
+                    <div class="d-card">
+                        <i class="far fa-heart d-heart"></i>
+                        <div>
+                            <span class="d-category">Categories</span>
+                            <h3 class="d-title">Rings</h3>
+                            <span class="d-badge">Sale</span>
+                        </div>
+                        <div class="d-img">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f6612048f?q=80&w=400&auto=format&fit=crop"
+                                alt="Ring">
+                        </div>
+                        <div class="d-bottom">
+                            <div class="d-prices">
+                                <span class="d-price-new">$999</span>
+                                <span class="d-price-old">$1299</span>
+                            </div>
+                            <button class="d-cart-btn">Add <i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="d-card">
+                        <i class="far fa-heart d-heart"></i>
+                        <div>
+                            <span class="d-category">Categories</span>
+                            <h3 class="d-title">Couple Ring</h3>
+                            <span class="d-badge">Sale</span>
+                        </div>
+                        <div class="d-img">
+                            <img src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=400&auto=format&fit=crop"
+                                alt="Ring">
+                        </div>
+                        <div class="d-bottom">
+                            <div class="d-prices">
+                                <span class="d-price-new">$799</span>
+                                <span class="d-price-old">$899</span>
+                            </div>
+                            <button class="d-cart-btn">Add <i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="d-card">
+                        <i class="far fa-heart d-heart"></i>
+                        <div>
+                            <span class="d-category">Categories</span>
+                            <h3 class="d-title">Necklace</h3>
+                        </div>
+                        <div class="d-img">
+                            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400&auto=format&fit=crop"
+                                alt="Necklace">
+                        </div>
+                        <div class="d-bottom">
+                            <div class="d-prices">
+                                <span class="d-price-new">$1499</span>
+                            </div>
+                            <button class="d-cart-btn">Add <i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="new-jewelry-section">
+        <div class="nj-container">
+            <div class="nj-left gsap-nj-reveal">
+                <img src="https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?q=80&w=600&auto=format&fit=crop"
+                    alt="Gold Bracelets on Arm">
+            </div>
+
+            <div class="nj-center gsap-nj-reveal">
+                <h2 class="serif-heading nj-title">New jewelry</h2>
+                <p class="nj-desc">Vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt
+                    lobortis. Id consectetur purus ut faucibus pulvinar elementum. Amet mattis vulputate enim nulla
+                    aliquet porttitor.</p>
+
+                <h4 class="nj-subtitle">GENUINE NATURE GLOW</h4>
+                <p class="nj-desc-small">Do eiusmod tempor incididunt ut labore et dolore magna suis ali to aliqua.</p>
+
+                <a href="#" class="nj-btn">SHOP NOW</a>
+            </div>
+
+            <div class="nj-right gsap-nj-reveal">
+                <div class="nj-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=400&auto=format&fit=crop"
+                        alt="Pendant Necklace">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="perfect-match-section">
+        <div class="pm-container">
+            <div class="pm-bg-band gsap-pm-band"></div>
+
+            <div class="pm-content gsap-pm-text">
+                <h2>Perfect Match<br>for Every Occasion</h2>
+                <p>coordinate with other pieces from the collection for a classic look.</p>
+                <a href="#" class="pm-link"><span class="pm-line"></span> DISCOVER THE SET</a>
+            </div>
+
+            <div class="pm-image gsap-pm-image">
+                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop"
+                    alt="Model wearing perfect match jewelry">
+            </div>
+        </div>
+    </section>
+
+    <section class="about-us-section">
+        <div class="about-container">
+            <div class="about-left gsap-about-left">
+                <h2 class="about-title">About Us</h2>
+                <p class="about-desc">Beautifully crafted collections with opal and fine details that are light in
+                    weight. Discover the stories and the artisans behind every singular expression of legacy
+                    craftsmanship.</p>
+
+                <div class="about-monogram">
+                    <span class="about-dot"></span>
+                    <div class="monogram-bg">S</div>
+                    <div class="monogram-text">OUR<br>STORY</div>
+                </div>
+            </div>
+
+            <div class="about-right">
+                <img class="about-img-back gsap-about-back"
+                    src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=800&auto=format&fit=crop"
+                    alt="Workshop Setting">
+
+                <div class="about-img-front-wrapper gsap-about-front">
+                    <div class="about-overlay-text">BIJOUX</div>
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600&auto=format&fit=crop"
+                        alt="Jewelry Model">
+                    <div class="about-overlay-date">2026 / Craft</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cat-row gsap-reveal">
+        <div class="cat-item">
+            <h4>RINGS <i class="fas fa-arrow-right"></i></h4>
+            <img src="https://images.unsplash.com/photo-1605100804763-247f6612048f?q=80&w=400&auto=format&fit=crop"
+                alt="Rings">
+        </div>
+        <div class="cat-item">
+            <h4>EARRINGS <i class="fas fa-arrow-right"></i></h4>
+            <img src="https://images.unsplash.com/photo-1588444650733-d0767b753cb8?q=80&w=400&auto=format&fit=crop"
+                alt="Earrings">
+        </div>
+        <div class="cat-item">
+            <h4>NECKLACES <i class="fas fa-arrow-right"></i></h4>
+            <img src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=400&auto=format&fit=crop"
+                alt="Necklaces">
+        </div>
+        <div class="cat-item">
+            <h4>BRACELETS <i class="fas fa-arrow-right"></i></h4>
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=400&auto=format&fit=crop"
+                alt="Bracelets">
+        </div>
+    </section>
+
+    <section class="loved-creations section-padding">
+        <h2 class="section-header serif-heading gsap-reveal">OUR MOST LOVED CREATIONS</h2>
+
+        <div class="product-grid-4">
+            <div class="product-card gsap-reveal">
+                <span class="badge-sale">Sale</span>
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1605100804763-247f6612048f?q=80&w=400&auto=format&fit=crop"
+                        alt="Ring"></div>
+                <div class="product-info">
+                    <h5>ETERNAL HAND RING</h5>
+                    <p>Premium 18k solid gold</p>
+                    <div class="product-price">$1,800 <button class="btn-add-cart">Add <i
+                                class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="product-card gsap-reveal">
+                <span class="badge-sale">Sale</span>
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=400&auto=format&fit=crop"
+                        alt="Bracelet"></div>
+                <div class="product-info">
+                    <h5>SOLAR BRACELETS</h5>
+                    <p>Maroon luxury accent</p>
+                    <div class="product-price">$1,500 <button class="btn-add-cart">Add <i
+                                class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="product-card gsap-reveal">
+                <span class="badge-sale">Sale</span>
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1605100804763-247f6612048f?q=80&w=400&auto=format&fit=crop"
+                        alt="Ring"></div>
+                <div class="product-info">
+                    <h5>DEYA GOLD RING</h5>
+                    <p>Precious gold ring</p>
+                    <div class="product-price">$1,100 <button class="btn-add-cart">Add <i
+                                class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="product-card gsap-reveal">
+                <span class="badge-sale">Sale</span>
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1588444650733-d0767b753cb8?q=80&w=400&auto=format&fit=crop"
+                        alt="Earring"></div>
+                <div class="product-info">
+                    <h5>LUNA CHAIN EARRING</h5>
+                    <p>Long chain earring</p>
+                    <div class="product-price">$2,800 <button class="btn-add-cart">Add <i
+                                class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="antique-spotlight section-padding">
+        <div class="antique-img-group gsap-reveal">
+            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=500&auto=format&fit=crop"
+                alt="Model">
+            <img style="margin-top: 40px;"
+                src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=500&auto=format&fit=crop"
+                alt="Necklace">
+        </div>
+        <div class="antique-content gsap-reveal">
+            <h3 class="serif-heading" style="font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 10px;">COLLECTIONS
+                SPOTLIGHT:</h3>
+            <h2 class="serif-heading">Antique Diamond<br>Necklaces</h2>
+            <p style="font-style: italic; color: var(--color-gold);">beautiful colors. excellent quality.</p>
+            <p>Work directly with our Master Goldsmiths and Gemologists to craft a singular expression of legacy
+                craftsmanship. Discover the depth of history in every cut.</p>
+            <a href="#" class="gold-link">EXPLORE THE LEGACY COLLECTION <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section class="best-sellers-section section-padding">
+        <h2 class="serif-heading gsap-reveal">FIND THE PERFECT DIAMOND FOR</h2>
+        <h3 class="serif-heading gsap-reveal">BEST SELLERS</h3>
+
+        <div class="product-grid-4" style="margin-top: 40px;">
+            <div class="product-card gsap-reveal">
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=400&auto=format&fit=crop"
+                        alt="Pendant"></div>
+                <div class="product-info">
+                    <h5>CELESTIAL PEARL PENDANT</h5>
+                    <p>Premium craftsmanship</p>
+                    <div class="product-price"><span class="old-price">$1,900</span> $1,600 <button
+                            class="btn-add-cart">Add <i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="product-card gsap-reveal">
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1588444650733-d0767b753cb8?q=80&w=400&auto=format&fit=crop"
+                        alt="Cuff"></div>
+                <div class="product-info">
+                    <h5>STARBRIGHT CUFF</h5>
+                    <p>18k Gold Finish</p>
+                    <div class="product-price"><span class="old-price">$3,200</span> $2,800 <button
+                            class="btn-add-cart">Add <i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="product-card gsap-reveal">
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1605100804763-247f6612048f?q=80&w=400&auto=format&fit=crop"
+                        alt="Ring"></div>
+                <div class="product-info">
+                    <h5>AURA DIAMOND RING</h5>
+                    <p>VS1 Clarity Diamonds</p>
+                    <div class="product-price"><span class="old-price">$3,500</span> $3,100 <button
+                            class="btn-add-cart">Add <i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="product-card gsap-reveal">
+                <i class="far fa-heart heart-btn"></i>
+                <div class="product-img-wrap"><img
+                        src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=400&auto=format&fit=crop"
+                        alt="Choker"></div>
+                <div class="product-info">
+                    <h5>LUNA CHOKER</h5>
+                    <p>Timeless elegant curve</p>
+                    <div class="product-price"><span class="old-price">$2,600</span> $2,200 <button
+                            class="btn-add-cart">Add <i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section section-padding">
+        <h2 class="serif-heading gsap-reveal" style="font-size: 3rem; color: var(--color-maroon);">VOICES OF ELEGANCE
+        </h2>
+        <p class="gsap-reveal" style="margin-top: 10px; opacity: 0.8;">Cherished moments shared by our clientele.</p>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card gsap-reveal">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-text">"The craftsmanship is unparalleled. My celestial pearl pendant draws
+                    compliments wherever I go. It truly feels like a piece of wearable art."</p>
+                <p class="testimonial-author">— Eleanor R.</p>
+            </div>
+            <div class="testimonial-card gsap-reveal">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-text">"I worked with their master gemologists for a bespoke engagement ring. The
+                    attention to detail and personalized service made the experience unforgettable."</p>
+                <p class="testimonial-author">— James T.</p>
+            </div>
+            <div class="testimonial-card gsap-reveal">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-text">"Every piece I've acquired from Shagun Ratna carries a sense of history and
+                    modern elegance. The 18k gold finishes are absolutely breathtaking."</p>
+                <p class="testimonial-author">— Sophia M.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="news-section section-padding">
+        <h2 class="serif-heading news-section-title gsap-reveal">News From Our Craftshop</h2>
+
+        <div class="news-grid">
+            <article class="news-card gsap-reveal">
+                <div class="news-img-wrap">
+                    <div class="news-date">
+                        <span class="n-day">18</span>
+                        <span class="n-month">Dec</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop"
+                        alt="Beautiful Tokens">
+                </div>
+                <div class="news-meta">Materials / Rose Gold</div>
+                <h3 class="news-title">Beautiful Tokens</h3>
+                <p class="news-excerpt">Explore the intricate process behind our latest rose gold collection.
+                    Meticulously crafted tokens designed to preserve your most cherished memories forever.</p>
+                <a href="#" class="news-read-more">• Read More</a>
+            </article>
+
+            <article class="news-card gsap-reveal">
+                <div class="news-img-wrap">
+                    <div class="news-date">
+                        <span class="n-day">18</span>
+                        <span class="n-month">Dec</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop"
+                        alt="Jewelry Care">
+                </div>
+                <div class="news-meta">Lifestyle / Care</div>
+                <h3 class="news-title">Tips For Jewelry Care</h3>
+                <p class="news-excerpt">Learn expert techniques from our master jewelers on how to maintain the
+                    brilliant shine and structural integrity of your high jewelry pieces at home.</p>
+                <a href="#" class="news-read-more">• Read More</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <h2 class="serif-heading newsletter-title gsap-reveal">Join The Inner Circle</h2>
+        <p class="gsap-reveal" style="opacity: 0.9;">Subscribe to receive early access to new collections, private
+            viewings, and bespoke services.</p>
+
+        <form class="newsletter-form gsap-reveal" onsubmit="event.preventDefault();">
+            <input type="email" class="newsletter-input" placeholder="Enter your email address..." required>
+            <button type="submit" class="newsletter-submit"><i class="fas fa-arrow-right"></i></button>
+        </form>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-logo gsap-reveal">Shagun Ratna</div>
+        <div class="footer-links gsap-reveal">
+            <a href="#">HOME</a>
+            <a href="#">PRODUCTS</a>
+            <a href="#">RELEASES</a>
+            <a href="#">CONTACTS</a>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="gsap-reveal">
+                <a href="#" style="color: var(--color-gold); margin-right: 15px;"><i class="fab fa-instagram"></i>
+                    Instagram</a>
+                <a href="#" style="color: var(--color-gold);"><i class="fab fa-facebook"></i> Facebook</a>
+            </div>
+            <div class="gsap-reveal">© 2026 Shagun Ratna Jewelry. All rights reserved.</div>
+            <div class="gsap-reveal">Privacy Policy | Terms of Condition</div>
+        </div>
+    </footer>
+
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal" id="authModalBox">
+            <button class="close-modal" id="closeAuthBtn"><i class="fas fa-times"></i></button>
+
+            <div class="auth-header">
+                <h2>Welcome</h2>
+                <div class="auth-toggle">
+                    <button class="toggle-btn active" id="showLoginBtn">Login</button>
+                    <button class="toggle-btn" id="showRegisterBtn">Register</button>
+                </div>
+            </div>
+
+            <form class="auth-form active" id="loginForm" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="auth-submit">Sign In</button>
+            </form>
+
+            <form class="auth-form" id="registerForm" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Jane Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="auth-submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Selection</h3>
+            <button class="close-cart" id="closeCartBtn"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="cart-items" id="cartItemsContainer">
+            <div class="empty-cart-msg">Your cart is beautifully empty.</div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total</span>
+                <span id="cartTotalValue">$0</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const lenis = new Lenis({
+                duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical', smooth: true
+            });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0);
+
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    gsap.to(btn, { x: (e.clientX - rect.left - rect.width / 2) * 0.3, y: (e.clientY - rect.top - rect.height / 2) * 0.3, duration: 0.4, ease: "power2.out" });
+                });
+                btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" }); });
+            });
+
+            const tlHero = gsap.timeline();
+            tlHero.from(".intro-anim", { y: -20, opacity: 0, duration: 1, ease: "power3.out" })
+                .to(".brand-title", { y: 0, duration: 1.4, ease: "expo.out" }, "-=0.5")
+                .to(".title-line", { scaleX: 1, duration: 1.2, ease: "power3.inOut" }, "-=1")
+                .to(".center-image", { opacity: 1, y: 0, duration: 1.5, ease: "power3.out" }, "-=0.8")
+                .to(".left-col", { opacity: 1, x: 0, duration: 1, ease: "power2.out" }, "-=1")
+                .to(".right-col", { opacity: 1, x: 0, duration: 1, ease: "power2.out" }, "-=0.8");
+
+            gsap.to(".parallax-hand", { yPercent: 25, ease: "none", scrollTrigger: { trigger: ".hero-header", start: "top top", end: "bottom top", scrub: true } });
+
+            gsap.set(".gsap-reveal", { visibility: "visible" });
+
+            const stConfig = (triggerEl) => ({
+                trigger: triggerEl, start: "top 85%", toggleActions: "play reverse play reverse"
+            });
+
+            gsap.from(".gsap-slider-card", { scrollTrigger: stConfig(".featured-slider-section"), x: 100, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out" });
+
+            const sliderTrack = document.querySelector('.slider-track');
+            const nextArrow = document.querySelector('.next-arrow');
+            if (nextArrow && sliderTrack) {
+                nextArrow.addEventListener('click', () => {
+                    const cardWidth = document.querySelector('.slider-card').offsetWidth;
+                    sliderTrack.scrollBy({ left: cardWidth + 20, behavior: 'smooth' });
+                });
+            }
+
+            gsap.from(".gsap-diamond-left > *", { scrollTrigger: stConfig(".diamonds-section"), x: -50, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out" });
+            gsap.from(".d-card", { scrollTrigger: stConfig(".diamonds-section"), x: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: 0.2 });
+
+            const dTrack = document.querySelector('.diamond-track');
+            const dNext = document.querySelector('.d-next');
+            const dPrev = document.querySelector('.d-prev');
+            if (dTrack && dNext && dPrev) {
+                dNext.addEventListener('click', () => { const cardW = document.querySelector('.d-card').offsetWidth; dTrack.scrollBy({ left: cardW + 20, behavior: 'smooth' }); });
+                dPrev.addEventListener('click', () => { const cardW = document.querySelector('.d-card').offsetWidth; dTrack.scrollBy({ left: -(cardW + 20), behavior: 'smooth' }); });
+            }
+
+            gsap.from(".gsap-nj-reveal", { scrollTrigger: stConfig(".new-jewelry-section"), y: 50, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out" });
+
+            const tlPM = gsap.timeline({ scrollTrigger: { trigger: ".perfect-match-section", start: "top 80%", toggleActions: "play reverse play reverse" } });
+            tlPM.from(".gsap-pm-band", { x: 100, opacity: 0, duration: 1, ease: "power3.out" })
+                .from(".gsap-pm-image", { y: 50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6")
+                .from(".gsap-pm-text > *", { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out" }, "-=0.8");
+
+            const tlAbout = gsap.timeline({ scrollTrigger: { trigger: ".about-us-section", start: "top 75%", toggleActions: "play reverse play reverse" } });
+            tlAbout.from(".gsap-about-left > *", { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out" })
+                .from(".gsap-about-back", { y: 50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6")
+                .from(".gsap-about-front", { y: 70, x: -30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.7");
+
+            gsap.from(".cat-row .cat-item", { scrollTrigger: stConfig(".cat-row"), y: 50, opacity: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.2)" });
+
+            const grids = [".loved-creations", ".best-sellers-section"];
+            grids.forEach(sec => {
+                gsap.from(`${sec} .serif-heading`, { scrollTrigger: stConfig(sec), y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1 });
+                gsap.from(`${sec} .product-card`, { scrollTrigger: { trigger: `${sec} .product-grid-4`, start: "top 80%", toggleActions: "play reverse play reverse" }, y: 60, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" });
+                gsap.from(`${sec} .product-img-wrap img`, { scrollTrigger: { trigger: `${sec} .product-grid-4`, start: "top 80%", toggleActions: "play reverse play reverse" }, scale: 0.8, opacity: 0, duration: 1, stagger: 0.1, ease: "back.out(1.5)", delay: 0.2 });
+            });
+
+            gsap.from(".antique-spotlight .antique-img-group img", { scrollTrigger: stConfig(".antique-spotlight"), clipPath: "inset(100% 0 0 0)", y: 50, duration: 1.2, stagger: 0.2, ease: "expo.out" });
+            gsap.from(".antique-spotlight .antique-content > *", { scrollTrigger: stConfig(".antique-spotlight"), x: 40, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.3 });
+            gsap.from(".testimonials-section > .serif-heading, .testimonials-section > p", { scrollTrigger: stConfig(".testimonials-section"), y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" });
+            gsap.from(".testimonials-section .testimonial-card", { scrollTrigger: { trigger: ".testimonial-grid", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, scale: 0.95, duration: 0.8, stagger: 0.15, ease: "power3.out" });
+            gsap.from(".news-section > .news-section-title", { scrollTrigger: stConfig(".news-section"), y: 30, opacity: 0, duration: 0.8, ease: "power3.out" });
+            gsap.from(".news-section .news-card", { scrollTrigger: { trigger: ".news-grid", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out" });
+            gsap.from(".newsletter-section > *", { scrollTrigger: stConfig(".newsletter-section"), y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" });
+            gsap.from(".site-footer .gsap-reveal", { scrollTrigger: stConfig(".site-footer"), y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" });
+
+            gsap.utils.toArray(".parallax-element").forEach((img) => {
+                gsap.to(img, { yPercent: 15, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } });
+            });
+
+            // =========================================
+            // AUTH MODAL LOGIC
+            // =========================================
+            const authOverlay = document.getElementById('authOverlay');
+            const authModalBox = document.getElementById('authModalBox');
+            const btnLogin = document.getElementById('navLoginBtn');
+            const btnRegister = document.getElementById('navRegisterBtn');
+            const closeAuthBtn = document.getElementById('closeAuthBtn');
+
+            const showLoginBtn = document.getElementById('showLoginBtn');
+            const showRegisterBtn = document.getElementById('showRegisterBtn');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+
+            function openAuthModal(formType) {
+                authOverlay.classList.add('active');
+                gsap.fromTo(authModalBox, { y: 30, scale: 0.95, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.2)" });
+                if (formType === 'register') { showRegisterBtn.click(); } else { showLoginBtn.click(); }
+            }
+
+            function closeAuthModal() {
+                gsap.to(authModalBox, {
+                    y: 20, scale: 0.95, opacity: 0, duration: 0.3, ease: "power2.in", onComplete: () => {
+                        authOverlay.classList.remove('active');
+                    }
+                });
+            }
+
+            btnLogin.addEventListener('click', () => openAuthModal('login'));
+            btnRegister.addEventListener('click', () => openAuthModal('register'));
+            closeAuthBtn.addEventListener('click', closeAuthModal);
+            authOverlay.addEventListener('click', (e) => { if (e.target === authOverlay) closeAuthModal(); });
+
+            showLoginBtn.addEventListener('click', () => {
+                showRegisterBtn.classList.remove('active');
+                showLoginBtn.classList.add('active');
+                registerForm.classList.remove('active');
+                loginForm.classList.add('active');
+            });
+
+            showRegisterBtn.addEventListener('click', () => {
+                showLoginBtn.classList.remove('active');
+                showRegisterBtn.classList.add('active');
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+            });
+
+            // =========================================
+            // CART LOGIC
+            // =========================================
+            let cart = [];
+            const navCartBtn = document.getElementById('navCartBtn');
+            const cartOverlay = document.getElementById('cartOverlay');
+            const cartSidebar = document.getElementById('cartSidebar');
+            const closeCartBtn = document.getElementById('closeCartBtn');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartTotalValue = document.getElementById('cartTotalValue');
+
+            function openCart() {
+                cartOverlay.classList.add('active');
+                gsap.to(cartSidebar, { x: 0, duration: 0.5, ease: "power3.out" });
+            }
+
+            function closeCart() {
+                gsap.to(cartSidebar, {
+                    x: "100%", duration: 0.4, ease: "power3.in", onComplete: () => {
+                        cartOverlay.classList.remove('active');
+                    }
+                });
+            }
+
+            navCartBtn.addEventListener('click', openCart);
+            closeCartBtn.addEventListener('click', closeCart);
+            cartOverlay.addEventListener('click', (e) => { if (e.target === cartOverlay) closeCart(); });
+
+            function updateCartUI() {
+                cartBadge.innerText = cart.length;
+                gsap.fromTo(cartBadge, { scale: 1.5 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
+
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<div class="empty-cart-msg">Your cart is beautifully empty.</div>';
+                } else {
+                    cart.forEach((item, index) => {
+                        total += item.price;
+                        const cartItemEl = document.createElement('div');
+                        cartItemEl.className = 'cart-item-card';
+                        cartItemEl.innerHTML = `
+                            <div class="cart-item-img"><img src="${item.imgSrc}" alt="${item.title}"></div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-price">$${item.price}</div>
+                            </div>
+                            <button class="remove-item" data-index="${index}"><i class="fas fa-trash-alt"></i></button>
+                        `;
+                        cartItemsContainer.appendChild(cartItemEl);
+                    });
+
+                    document.querySelectorAll('.remove-item').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const idx = e.currentTarget.getAttribute('data-index');
+                            gsap.to(e.currentTarget.closest('.cart-item-card'), {
+                                x: 50, opacity: 0, duration: 0.3, onComplete: () => {
+                                    cart.splice(idx, 1);
+                                    updateCartUI();
+                                }
+                            });
+                        });
+                    });
+                }
+                cartTotalValue.innerText = `$${total}`;
+            }
+
+            // Universal Add to Cart Handler
+            function handleAddToCart(title, priceText, imgSrc, btnElement) {
+                // Strip out characters like $ or commas
+                const price = parseInt(priceText.replace(/[^0-9.-]+/g, ""));
+                cart.push({ title, price, imgSrc });
+                updateCartUI();
+
+                // Button click animation
+                const icon = btnElement.querySelector('i');
+                if (icon) gsap.to(icon, { rotation: 360, duration: 0.5, ease: "power2.out", clearProps: "all" });
+                openCart();
+            }
+
+            // Listeners for Loved Creations / Best Sellers (.product-card)
+            document.querySelectorAll('.product-card .btn-add-cart').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const card = e.target.closest('.product-card');
+                    if (!card) return;
+                    const title = card.querySelector('h5').innerText;
+                    const priceText = card.querySelector('.product-price').innerText.split(' ')[0];
+                    const imgSrc = card.querySelector('img').src;
+                    handleAddToCart(title, priceText, imgSrc, btn);
+                });
+            });
+
+            // Listeners for Diamonds Section (.d-card)
+            document.querySelectorAll('.d-card .d-cart-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const card = e.target.closest('.d-card');
+                    if (!card) return;
+                    const title = card.querySelector('.d-title').innerText;
+                    const priceText = card.querySelector('.d-price-new').innerText;
+                    const imgSrc = card.querySelector('img').src;
+                    handleAddToCart(title, priceText, imgSrc, btn);
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>
