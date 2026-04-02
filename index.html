@@ -334,7 +334,7 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            height: 75vh;
+            height: 60vh;
             z-index: 5;
             pointer-events: none;
             opacity: 0;
@@ -480,8 +480,8 @@
         }
 
         /* =========================================
-           2. FEATURED CATEGORIES SLIDER
-           ========================================= */
+   2. FEATURED CATEGORIES SLIDER
+   ========================================= */
         .featured-slider-section {
             background: linear-gradient(to bottom, var(--color-maroon-dark) 0%, var(--color-maroon-dark) 55%, var(--bg-beige) 55%, var(--bg-beige) 100%);
             position: relative;
@@ -508,12 +508,13 @@
             display: none;
         }
 
+        /* --- NEW PREMIUM SLIDER CARDS --- */
         .slider-card {
             min-width: 320px;
             flex: 0 0 calc(33.333% - 14px);
-            background-color: #F8F6F3;
+            background-color: var(--color-maroon-dark);
             border-radius: 20px;
-            padding: 30px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -521,70 +522,100 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             scroll-snap-align: start;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            overflow: hidden;
+            min-height: 420px;
+            /* Gives the card a tall, editorial feel */
+        }
+
+        /* Dark gradient overlay for text readability */
+        .slider-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(42, 11, 11, 0.9) 0%, rgba(42, 11, 11, 0.2) 50%, rgba(0, 0, 0, 0.1) 100%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .slider-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(42, 11, 11, 0.3);
         }
 
         .card-top {
-            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            padding: 30px 30px 0;
         }
 
         .card-subtitle {
             font-size: 0.75rem;
-            color: #777;
+            color: var(--color-gold);
             text-transform: capitalize;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .card-title {
-            font-size: 1.8rem;
-            color: #222;
-            margin-top: 4px;
-            font-weight: 700;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-top: 5px;
+            font-weight: 400;
+            font-family: var(--font-serif);
         }
 
         .card-image {
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 15px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            z-index: 0;
         }
 
         .card-image img {
+            width: 100%;
+            height: 100%;
             max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            mix-blend-mode: multiply;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            object-fit: cover;
+            mix-blend-mode: normal;
+            /* Removed multiply so images look like real photos */
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 0;
         }
 
         .slider-card:hover .card-image img {
-            transform: scale(1.08);
+            transform: scale(1.1);
         }
 
         .card-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background-color: #333;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            padding: 10px 16px;
-            border-radius: 6px;
+            padding: 12px 20px;
+            border-radius: 50px;
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: 500;
             align-self: flex-start;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+            margin: 0 30px 30px;
         }
 
         .card-btn:hover {
-            background-color: var(--color-maroon);
+            background-color: var(--color-gold);
+            color: var(--color-maroon-dark);
+            border-color: var(--color-gold);
         }
 
+        /* Arrows remain the same */
         .slider-arrow {
             position: absolute;
             right: 2%;
@@ -1151,7 +1182,7 @@
             object-fit: cover;
             position: absolute;
             top: 0;
-            left: 0;
+            left: 215;
             z-index: 1;
             border-radius: 4px;
         }
@@ -2272,9 +2303,7 @@
         </div>
 
         <div class="center-image">
-            <img class="parallax-hand"
-                src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=800&auto=format&fit=crop"
-                alt="Jewelry Display">
+            <img class="parallax-hand" src="Gemini_Generated_Image_ndb27fndb27fndb2.png" alt="Jewelry Display">
         </div>
 
         <div class="content-wrapper">
@@ -2307,8 +2336,7 @@
                         <h3 class="card-title">Rings</h3>
                     </div>
                     <div class="card-image">
-                        <img src="rings.jpg"
-                            alt="Rings">
+                        <img src="dtsyhshd/ring 3.jpeg" alt="Rings">
                     </div>
                     <a href="#" class="card-btn">Check More Product <i class="fas fa-arrow-right"></i></a>
                 </div>
@@ -2319,8 +2347,7 @@
                         <h3 class="card-title">Couple Rings</h3>
                     </div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=400&auto=format&fit=crop"
-                            alt="Couple Rings">
+                        <img src="cr.jpg" alt="Couple Rings">
                     </div>
                     <a href="#" class="card-btn">Check More Product <i class="fas fa-arrow-right"></i></a>
                 </div>
@@ -2331,8 +2358,7 @@
                         <h3 class="card-title">Earrings</h3>
                     </div>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1588444650733-d0767b753cb8?q=80&w=400&auto=format&fit=crop"
-                            alt="Earrings">
+                        <img src="dtsyhshd/er1.jpeg" alt="Earrings">
                     </div>
                     <a href="#" class="card-btn">Check More Product <i class="fas fa-arrow-right"></i></a>
                 </div>
@@ -2367,8 +2393,7 @@
                             <span class="d-badge">Sale</span>
                         </div>
                         <div class="d-img">
-                            <img src="https://images.unsplash.com/photo-1605100804763-247f6612048f?q=80&w=400&auto=format&fit=crop"
-                                alt="Ring">
+                            <img src="dtsyhshd/r4.jpeg  " alt="Ring">
                         </div>
                         <div class="d-bottom">
                             <div class="d-prices">
@@ -2387,8 +2412,7 @@
                             <span class="d-badge">Sale</span>
                         </div>
                         <div class="d-img">
-                            <img src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=400&auto=format&fit=crop"
-                                alt="Ring">
+                            <img src="cr.jpg" alt="Ring">
                         </div>
                         <div class="d-bottom">
                             <div class="d-prices">
@@ -2460,8 +2484,7 @@
             </div>
 
             <div class="pm-image gsap-pm-image">
-                <img src="Necklace (1).jpg"
-                    alt="Model wearing perfect match jewelry">
+                <img src="Necklace (1).jpg" alt="Model wearing perfect match jewelry">
             </div>
         </div>
     </section>
@@ -2513,8 +2536,7 @@
         </div>
         <div class="cat-item">
             <h4>BRACELETS <i class="fas fa-arrow-right"></i></h4>
-            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=400&auto=format&fit=crop"
-                alt="Bracelets">
+            <img src="br.jpg" alt="Bracelets">
         </div>
     </section>
 
@@ -2538,9 +2560,7 @@
             <div class="product-card gsap-reveal">
                 <span class="badge-sale">Sale</span>
                 <i class="far fa-heart heart-btn"></i>
-                <div class="product-img-wrap"><img
-                        src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=400&auto=format&fit=crop"
-                        alt="Bracelet"></div>
+                <div class="product-img-wrap"><img src="br.jpg" alt="Bracelet"></div>
                 <div class="product-info">
                     <h5>SOLAR BRACELETS</h5>
                     <p>Maroon luxury accent</p>
@@ -2579,11 +2599,8 @@
 
     <section class="antique-spotlight section-padding">
         <div class="antique-img-group gsap-reveal">
-            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=500&auto=format&fit=crop"
-                alt="Model">
-            <img style="margin-top: 40px;"
-                src="https://images.unsplash.com/photo-1599643478514-4a420914c62c?q=80&w=500&auto=format&fit=crop"
-                alt="Necklace">
+            <img src="dtsyhshd/lc.jpeg" alt="Model">
+            <img style="margin-top: 40px;" src="dtsyhshd/nc.jpeg" alt="Necklace">
         </div>
         <div class="antique-content gsap-reveal">
             <h3 class="serif-heading" style="font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 10px;">COLLECTIONS
@@ -2639,9 +2656,7 @@
             </div>
             <div class="product-card gsap-reveal">
                 <i class="far fa-heart heart-btn"></i>
-                <div class="product-img-wrap"><img
-                        src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=400&auto=format&fit=crop"
-                        alt="Choker"></div>
+                <div class="product-img-wrap"><img src="br.jpg" alt="Choker"></div>
                 <div class="product-info">
                     <h5>LUNA CHOKER</h5>
                     <p>Timeless elegant curve</p>
@@ -2705,8 +2720,7 @@
                         <span class="n-day">18</span>
                         <span class="n-month">Dec</span>
                     </div>
-                    <img src="Necklace (1).jpg"
-                        alt="Jewelry Care">
+                    <img src="Necklace (1).jpg" alt="Jewelry Care">
                 </div>
                 <div class="news-meta">Lifestyle / Care</div>
                 <h3 class="news-title">Tips For Jewelry Care</h3>
